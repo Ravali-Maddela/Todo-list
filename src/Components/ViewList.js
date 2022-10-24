@@ -1,9 +1,14 @@
-import React from 'react'
-// import ListItem from './ListItem'
+import React, { useState } from 'react'
+import Update from './Update';
+import ViewItem from './ViewItem'
 
 export default function ViewList(props) {
-    const todoData= props.todoData;
-    console.log(todoData)
+    const todoData = props.todoData;
+    const [isEditing, setisEditing] = useState(false)
+
+ const updateTodo =()=>{
+    setisEditing(true)
+  }
     return (
         <div className='list'>
             <h4>Todo List</h4>
@@ -11,22 +16,33 @@ export default function ViewList(props) {
                 <thead className='bg-warning'>
                     <tr><th>SR. No</th>
                         <th>Task</th>
-                        <th>Status</th></tr>
+                        <th>Status</th>
+                        {
+                            props.tableHead ? <th>{props.tableHead}</th> : null
+                        }
+                    </tr>
                 </thead>
                 <tbody>
                     {
-                        console.log(todoData)}
-                        {
-                        todoData.map((list,i) => <tr key={i}>
-                            <td >{list.sno}</td>
-                            <td>{list.task}</td>
-                            <td>{list.status} </td>
-                        </tr>)
+                        todoData.map((list, i) =>
+                            <ViewItem
+                                key={i}
+                                list={list}
+                                id={i}
+                                deleteTodo={props.deleteTodo}
+                                tableHead={props.tableHead}
+                                updateTodo={updateTodo}
+                                editTodo={props.editTodo}
+                            />)
                     }
-
 
                 </tbody>
             </table>
+            {
+
+                isEditing ? <Update isEditing={isEditing} todoData={todoData} editTodo={props.editTodo} editedTodo={props.editedTodo} /> : null
+
+            }
         </div>
     )
 }

@@ -1,25 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-export default function AddList(props) {
-  
-   const handleSubmit=(e)=>{
+export default function AddList (){
+    const [todoData, setTodoData] = useState(localStorage.getItem('todoData')
+    ? JSON.parse(localStorage.getItem('todoData'))
+    : [])
+
+    const navigate= useNavigate()
+    
+   
+ const handleSubmit = (e) => {
         e.preventDefault()
         
-        const task= e.target.elements.task.value;
-        const status=e.target.elements.status.value;
-        const todoData={
-            sno:1,
-            task:task,
-            status:status
+        const  sno= (todoData.length!==0) ? todoData.length+1 : 1;
+        const task = e.target.elements.task.value;
+        const status = e.target.elements.status.value;
+        const addedTodo = {
+            sno: sno,
+            task: task,
+            status: status
         }
-        if(task && status){
-           props.onAddTodo(todoData)
-   
+        if (task && status) {
+            todoData.push(addedTodo)
+            setTodoData(todoData)
+            localStorage.setItem('todoData', JSON.stringify(todoData))
+          navigate('/')
         }
         console.log(todoData)
        
     }
-   
+
     return (
         <div className='list'>
             <h4>Add Todo</h4>
@@ -37,7 +47,9 @@ export default function AddList(props) {
                 </div>
                 <div><button>Add</button></div>
             </form>
-
         </div>
     )
+
+
+  
 }

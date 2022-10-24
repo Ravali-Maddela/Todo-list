@@ -12,8 +12,8 @@ code {
     monospace;
 }
 .list{
-  border: 2px solid black;
-  margin: 5rem;
+  border: 2px solid rgb(242, 237, 237);
+  margin: 7rem;
   padding: 1rem;
 }
 .list h4{
@@ -21,11 +21,9 @@ code {
   display: flex;
   justify-content: center;
 }
-table{
-  position: relative;
-  max-width: fit-content;
-  width: 100%;
-  margin: 2rem;
+
+.tableRow{
+  padding: 3rem;
 }
 form{
   padding: 1rem;
